@@ -1,0 +1,69 @@
+version: "3.8"
+
+services:
+  web:
+    build:
+      dockerfile: Dockerfile
+      target: web
+    command: >
+      sh -c "
+      python manage.py migrate &&
+      python manage.py collectstatic --no-input &&
+      python manage.py compilemessages &&
+      gunicorn blackclick.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+      - logs:/home/app/web/logs
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
+    restart: always
+
+  celery:
+    build:
+      dockerfile: Dockerfile
+      target: web
+    command: celery -A blackclick worker -l INFO
+    volumes:
+      - database:/home/app/web/db
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+      - logs:/home/app/web/logs
+    env_file:
+      - ./.env
+    depends_on:
+      - web
+      - redis
+    restart: always
+
+  redis:
+    image: "redis:7-alpine"
+    hostname: redis
+    volumes:
+      - redis_data:/data
+
+  nginx:
+    build:
+      context: .
+      target: nginx
+    volumes:
+      - database:/home/app/web/db
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+      - logs:/var/log/nginx/
+    env_file:
+      - ./.env
+    ports:
+      - 80:80
+    depends_on:
+      - web
+    restart: always
+
+volumes:
+  logs:
+  database:
+  redis_data:
+  static_volume:
+  media_volume:

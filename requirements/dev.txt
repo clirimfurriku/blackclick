@@ -1,0 +1,5 @@
+-r base.txt
+black
+django-debug-toolbar~=3.5
+django-sql-explorer~=2.4
+pre-commit

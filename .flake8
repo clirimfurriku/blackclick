@@ -1,0 +1,11 @@
+[flake8]
+max-line-length = 120
+
+exclude =
+    .git,
+    __pycache__,
+    */migrations/*
+
+per-file-ignores =
+        */tests.py: F401
+        */settings/*: F403, F405
