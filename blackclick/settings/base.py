@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "mixer",
     "blackclick",
+    "automation.apps.AutomationConfig",
 ]
 
 MIDDLEWARE = [
