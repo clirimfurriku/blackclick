@@ -19,7 +19,11 @@ from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
-api_urlpatterns = []
+api_urlpatterns = [
+    path("users/", include("user.urls"), name="users"),
+    path("campaign/", include("campaign.urls"), name="campaigns"),
+    path("jobs/", include("job.urls"), name="jobs"),
+]
 
 urlpatterns = [
     path("api/admin/", admin.site.urls),

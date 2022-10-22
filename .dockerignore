@@ -99,3 +99,5 @@ fabric.properties
 .idea/*
 !.idea/codeStyles
 !.idea/runConfigurations
+.git
+.gitignore

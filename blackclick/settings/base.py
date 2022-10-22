@@ -47,7 +47,10 @@ INSTALLED_APPS = [
     "django_extensions",
     "mixer",
     "blackclick",
-    "automation.apps.AutomationConfig",
+    "automation",
+    "user",
+    "campaign",
+    "job",
 ]
 
 MIDDLEWARE = [
@@ -132,7 +135,7 @@ LOCALE_PATHS = (BASE_DIR / "locale",)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "/images/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "/media/"
