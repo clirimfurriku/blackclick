@@ -17,9 +17,11 @@ import {
   PaginatedCampaignList,
   PaginatedTaskList,
   PaginatedUserList,
+  PaginatedVisitScheduleList,
   PatchedCampaignRequest,
   PatchedTaskRequest,
   PatchedUserRequest,
+  PatchedVisitScheduleRequest,
   Task,
   TaskRequest,
   TokenObtainPair,
@@ -30,6 +32,9 @@ import {
   User,
   UserRequest,
   UsersUsersListParams,
+  VisitSchedule,
+  VisitScheduleRequest,
+  VisitsSchedulesListParams,
 } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
@@ -497,6 +502,128 @@ export class Api<
   usersUsersDestroy = (id: number, params: RequestParams = {}) =>
     this.request<void, any>({
       path: `/api/users/users/${id}/`,
+      method: "DELETE",
+      secure: true,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags visits
+   * @name VisitsSchedulesList
+   * @request GET:/api/visits/schedules/
+   * @secure
+   * @response `200` `PaginatedVisitScheduleList`
+   */
+  visitsSchedulesList = (
+    query: VisitsSchedulesListParams,
+    params: RequestParams = {}
+  ) =>
+    this.request<PaginatedVisitScheduleList, any>({
+      path: `/api/visits/schedules/`,
+      method: "GET",
+      query: query,
+      secure: true,
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags visits
+   * @name VisitsSchedulesCreate
+   * @request POST:/api/visits/schedules/
+   * @secure
+   * @response `201` `VisitSchedule`
+   */
+  visitsSchedulesCreate = (
+    data: VisitScheduleRequest,
+    params: RequestParams = {}
+  ) =>
+    this.request<VisitSchedule, any>({
+      path: `/api/visits/schedules/`,
+      method: "POST",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags visits
+   * @name VisitsSchedulesRetrieve
+   * @request GET:/api/visits/schedules/{id}/
+   * @secure
+   * @response `200` `VisitSchedule`
+   */
+  visitsSchedulesRetrieve = (id: number, params: RequestParams = {}) =>
+    this.request<VisitSchedule, any>({
+      path: `/api/visits/schedules/${id}/`,
+      method: "GET",
+      secure: true,
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags visits
+   * @name VisitsSchedulesUpdate
+   * @request PUT:/api/visits/schedules/{id}/
+   * @secure
+   * @response `200` `VisitSchedule`
+   */
+  visitsSchedulesUpdate = (
+    id: number,
+    data: VisitScheduleRequest,
+    params: RequestParams = {}
+  ) =>
+    this.request<VisitSchedule, any>({
+      path: `/api/visits/schedules/${id}/`,
+      method: "PUT",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags visits
+   * @name VisitsSchedulesPartialUpdate
+   * @request PATCH:/api/visits/schedules/{id}/
+   * @secure
+   * @response `200` `VisitSchedule`
+   */
+  visitsSchedulesPartialUpdate = (
+    id: number,
+    data: PatchedVisitScheduleRequest,
+    params: RequestParams = {}
+  ) =>
+    this.request<VisitSchedule, any>({
+      path: `/api/visits/schedules/${id}/`,
+      method: "PATCH",
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags visits
+   * @name VisitsSchedulesDestroy
+   * @request DELETE:/api/visits/schedules/{id}/
+   * @secure
+   * @response `204` `void` No response body
+   */
+  visitsSchedulesDestroy = (id: number, params: RequestParams = {}) =>
+    this.request<void, any>({
+      path: `/api/visits/schedules/${id}/`,
       method: "DELETE",
       secure: true,
       ...params,

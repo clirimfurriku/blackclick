@@ -37,6 +37,13 @@ export interface CampaignRequest {
   status?: StatusEnum | BlankEnum;
 }
 
+export enum DeviceTypeEnum {
+  Desktop = "Desktop",
+  Mobile = "Mobile",
+  Tablet = "Tablet",
+  Random = "Random",
+}
+
 export interface PaginatedCampaignList {
   /** @example 123 */
   count?: number;
@@ -85,6 +92,22 @@ export interface PaginatedUserList {
   results?: User[];
 }
 
+export interface PaginatedVisitScheduleList {
+  /** @example 123 */
+  count?: number;
+  /**
+   * @format uri
+   * @example http://api.example.org/accounts/?page=4
+   */
+  next?: string | null;
+  /**
+   * @format uri
+   * @example http://api.example.org/accounts/?page=2
+   */
+  previous?: string | null;
+  results?: VisitSchedule[];
+}
+
 export interface PatchedCampaignRequest {
   name?: string;
   /** @format date-time */
@@ -96,7 +119,6 @@ export interface PatchedCampaignRequest {
 
 export interface PatchedTaskRequest {
   query?: string;
-  status?: StatusEnum | BlankEnum;
   /** @format date-time */
   start_time?: string;
   /** @format date-time */
@@ -115,9 +137,32 @@ export interface PatchedUserRequest {
   password?: string;
 }
 
+export interface PatchedVisitScheduleRequest {
+  device_type?: DeviceTypeEnum;
+  screen_size?: ScreenSizeEnum;
+  periodic?: boolean;
+  repeat?: number;
+  repeat_every_min_start?: number;
+  repeat_every_min_end?: number | null;
+  visit_x_nuber_of_first_results?: number;
+  /** @format date-time */
+  last_run?: string | null;
+  /** @format date-time */
+  start_time?: string;
+  task?: number;
+  country?: number | null;
+  city?: number | null;
+}
+
+export enum ScreenSizeEnum {
+  Big = "Big",
+  Medium = "Medium",
+  Small = "Small",
+  Random = "Random",
+}
+
 export enum StatusEnum {
   C = "c",
-  U = "u",
   P = "p",
   F = "f",
   D = "d",
@@ -126,7 +171,7 @@ export enum StatusEnum {
 export interface Task {
   id: number;
   query: string;
-  status?: StatusEnum | BlankEnum;
+  status: StatusEnum;
   /** @format date-time */
   start_time: string;
   /** @format date-time */
@@ -141,7 +186,6 @@ export interface Task {
 
 export interface TaskRequest {
   query: string;
-  status?: StatusEnum | BlankEnum;
   /** @format date-time */
   start_time: string;
   /** @format date-time */
@@ -202,17 +246,69 @@ export interface UserRequest {
   password: string;
 }
 
+export interface VisitSchedule {
+  id: number;
+  status: StatusEnum;
+  device_type?: DeviceTypeEnum;
+  screen_size?: ScreenSizeEnum;
+  periodic?: boolean;
+  repeat?: number;
+  repeat_every_min_start: number;
+  repeat_every_min_end?: number | null;
+  visit_x_nuber_of_first_results?: number;
+  /** @format date-time */
+  last_run?: string | null;
+  /** @format date-time */
+  start_time: string;
+  /** @format date-time */
+  created_at: string;
+  /** @format date-time */
+  updated_at: string;
+  task: number;
+  country?: number | null;
+  city?: number | null;
+  created_by: number;
+}
+
+export interface VisitScheduleRequest {
+  device_type?: DeviceTypeEnum;
+  screen_size?: ScreenSizeEnum;
+  periodic?: boolean;
+  repeat?: number;
+  repeat_every_min_start: number;
+  repeat_every_min_end?: number | null;
+  visit_x_nuber_of_first_results?: number;
+  /** @format date-time */
+  last_run?: string | null;
+  /** @format date-time */
+  start_time: string;
+  task: number;
+  country?: number | null;
+  city?: number | null;
+}
+
 export interface CampaignCampaignsListParams {
   /** A page number within the paginated result set. */
   page?: number;
+  /** A search term. */
+  search?: string;
+  status?: "c" | "d" | "f" | "p";
 }
 
 export interface JobsTasksListParams {
   /** A page number within the paginated result set. */
   page?: number;
+  /** A search term. */
+  search?: string;
+  status?: "c" | "d" | "f" | "p";
 }
 
 export interface UsersUsersListParams {
+  /** A page number within the paginated result set. */
+  page?: number;
+}
+
+export interface VisitsSchedulesListParams {
   /** A page number within the paginated result set. */
   page?: number;
 }

@@ -23,6 +23,7 @@ api_urlpatterns = [
     path("users/", include("user.urls"), name="users"),
     path("campaign/", include("campaign.urls"), name="campaigns"),
     path("jobs/", include("job.urls"), name="jobs"),
+    path("visits/", include("visit.urls"), name="visits"),
 ]
 
 urlpatterns = [

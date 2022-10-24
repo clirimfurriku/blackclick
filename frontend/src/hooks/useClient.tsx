@@ -8,14 +8,13 @@ const useClient = () => {
       authConfig.storageTokenKeyName
     );
     if (storedToken) {
-      const clnt = new Api({
+      return new Api({
         baseUrl: authConfig.baseApiUrl,
         baseApiParams: {
           format: "json",
           headers: { Authorization: "Bearer " + storedToken },
         },
       });
-      return clnt;
     }
   });
 

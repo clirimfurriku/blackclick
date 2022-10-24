@@ -22,6 +22,7 @@ class CampaignViewSet(ModelViewSet):
 
     def perform_destroy(self, instance):
         instance.deleted_at = timezone.now()
+        instance.save()
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)

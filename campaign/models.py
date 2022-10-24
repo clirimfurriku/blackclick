@@ -24,3 +24,6 @@ class Campaign(models.Model):
     status = models.CharField(
         max_length=1, choices=CampaignStatusChoices.choices, default=CampaignStatusChoices.CREATED, blank=True
     )
+
+    def __str__(self):
+        return self.name

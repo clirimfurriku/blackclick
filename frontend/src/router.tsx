@@ -16,6 +16,8 @@ const Login = LoaderSuspense(lazy(() => import("./pages/Login")));
 
 const Campaigns = LoaderSuspense(lazy(() => import("./applications/campaign")));
 
+const Jobs = LoaderSuspense(lazy(() => import("./applications/job")));
+
 const Status404 = LoaderSuspense(lazy(() => import("./pages/Status404")));
 
 const routes: RouteObject[] = [
@@ -32,8 +34,16 @@ const routes: RouteObject[] = [
         element: <Navigate to="campaigns" replace />,
       },
       {
+        path: "campaigns/:campaignID",
+        element: <Jobs />,
+      },
+      {
         path: "campaigns",
         element: <Campaigns />,
+      },
+      {
+        path: "jobs",
+        element: <Jobs />,
       },
       {
         path: "*",

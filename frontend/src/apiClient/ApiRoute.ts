@@ -15,9 +15,11 @@ import {
   PaginatedCampaignList,
   PaginatedTaskList,
   PaginatedUserList,
+  PaginatedVisitScheduleList,
   PatchedCampaignRequest,
   PatchedTaskRequest,
   PatchedUserRequest,
+  PatchedVisitScheduleRequest,
   Task,
   TaskRequest,
   TokenObtainPair,
@@ -27,6 +29,8 @@ import {
   TokenVerifyRequest,
   User,
   UserRequest,
+  VisitSchedule,
+  VisitScheduleRequest,
 } from "./data-contracts";
 
 export namespace Api {
@@ -43,6 +47,9 @@ export namespace Api {
     export type RequestQuery = {
       /** A page number within the paginated result set. */
       page?: number;
+      /** A search term. */
+      search?: string;
+      status?: "c" | "d" | "f" | "p";
     };
     export type RequestBody = never;
     export type RequestHeaders = {};
@@ -154,6 +161,9 @@ export namespace Api {
     export type RequestQuery = {
       /** A page number within the paginated result set. */
       page?: number;
+      /** A search term. */
+      search?: string;
+      status?: "c" | "d" | "f" | "p";
     };
     export type RequestBody = never;
     export type RequestHeaders = {};
@@ -448,6 +458,117 @@ export namespace Api {
   export namespace UsersUsersDestroy {
     export type RequestParams = {
       /** A unique integer value identifying this user. */
+      id: number;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {};
+    export type ResponseBody = void;
+  }
+
+  /**
+   * No description
+   * @tags visits
+   * @name VisitsSchedulesList
+   * @request GET:/api/visits/schedules/
+   * @secure
+   * @response `200` `PaginatedVisitScheduleList`
+   */
+  export namespace VisitsSchedulesList {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      /** A page number within the paginated result set. */
+      page?: number;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {};
+    export type ResponseBody = PaginatedVisitScheduleList;
+  }
+
+  /**
+   * No description
+   * @tags visits
+   * @name VisitsSchedulesCreate
+   * @request POST:/api/visits/schedules/
+   * @secure
+   * @response `201` `VisitSchedule`
+   */
+  export namespace VisitsSchedulesCreate {
+    export type RequestParams = {};
+    export type RequestQuery = {};
+    export type RequestBody = VisitScheduleRequest;
+    export type RequestHeaders = {};
+    export type ResponseBody = VisitSchedule;
+  }
+
+  /**
+   * No description
+   * @tags visits
+   * @name VisitsSchedulesRetrieve
+   * @request GET:/api/visits/schedules/{id}/
+   * @secure
+   * @response `200` `VisitSchedule`
+   */
+  export namespace VisitsSchedulesRetrieve {
+    export type RequestParams = {
+      /** A unique integer value identifying this visit schedule. */
+      id: number;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {};
+    export type ResponseBody = VisitSchedule;
+  }
+
+  /**
+   * No description
+   * @tags visits
+   * @name VisitsSchedulesUpdate
+   * @request PUT:/api/visits/schedules/{id}/
+   * @secure
+   * @response `200` `VisitSchedule`
+   */
+  export namespace VisitsSchedulesUpdate {
+    export type RequestParams = {
+      /** A unique integer value identifying this visit schedule. */
+      id: number;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = VisitScheduleRequest;
+    export type RequestHeaders = {};
+    export type ResponseBody = VisitSchedule;
+  }
+
+  /**
+   * No description
+   * @tags visits
+   * @name VisitsSchedulesPartialUpdate
+   * @request PATCH:/api/visits/schedules/{id}/
+   * @secure
+   * @response `200` `VisitSchedule`
+   */
+  export namespace VisitsSchedulesPartialUpdate {
+    export type RequestParams = {
+      /** A unique integer value identifying this visit schedule. */
+      id: number;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = PatchedVisitScheduleRequest;
+    export type RequestHeaders = {};
+    export type ResponseBody = VisitSchedule;
+  }
+
+  /**
+   * No description
+   * @tags visits
+   * @name VisitsSchedulesDestroy
+   * @request DELETE:/api/visits/schedules/{id}/
+   * @secure
+   * @response `204` `void` No response body
+   */
+  export namespace VisitsSchedulesDestroy {
+    export type RequestParams = {
+      /** A unique integer value identifying this visit schedule. */
       id: number;
     };
     export type RequestQuery = {};

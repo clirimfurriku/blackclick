@@ -1,19 +1,13 @@
 from django.utils import timezone
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
 
-from job.models import Task
-from job.serializers import TaskSerializer
+from visit.models import VisitSchedule
+from visit.serializers import VisitScheduleSerializer
 
 
-class TaskViewSet(ModelViewSet):
-    queryset = Task.objects.filter(deleted_at=None)
-    serializer_class = TaskSerializer
-    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
-
-    filterset_fields = ("status",)
-    search_fields = ("name",)
+class VisitScheduleViewSet(ModelViewSet):
+    queryset = VisitSchedule.objects.filter(deleted_at=None)
+    serializer_class = VisitScheduleSerializer
 
     def get_queryset(self):
         if self.request.user.is_staff:

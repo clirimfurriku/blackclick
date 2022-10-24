@@ -2,7 +2,11 @@ import { Typography, Button, Grid } from "@mui/material";
 
 import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
 
-function PageHeader() {
+interface PageHeaderProps {
+  onAddCampaign: () => void;
+}
+
+function PageHeader({ onAddCampaign }: PageHeaderProps) {
   return (
     <Grid container justifyContent="space-between" alignItems="center">
       <Grid item>
@@ -18,6 +22,7 @@ function PageHeader() {
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
+          onClick={onAddCampaign}
         >
           Create new campaign
         </Button>

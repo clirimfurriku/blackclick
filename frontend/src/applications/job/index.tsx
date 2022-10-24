@@ -1,23 +1,24 @@
 import { Helmet } from "react-helmet-async";
-import CampaignHeader from "./CampaignHeader";
+import JobHeader from "./JobHeader";
 import PageTitleWrapper from "../../components/PageTitleWrapper";
 import { Card, Container, Grid } from "@mui/material";
-import CampaignTable from "./CampaignTable";
+import JobTable from "./JobTable";
 import { useState } from "react";
-import CampaignEditCreate from "./CampaignEditCreate";
+import JobEditCreate from "./JobEditCreate";
+import { useParams } from "react-router-dom";
 
-function Campaigns() {
-  const [toggleCreateCampaign, setToggleCreateCampaign] =
-    useState<boolean>(false);
-  // const {t} = useTranslation();
+function Jobs(props: any) {
+  const [toggleCreateJob, setToggleCreateJob] = useState<boolean>(false);
+
+  const { campaignID } = useParams();
 
   return (
     <>
       <Helmet>
-        <title>Campaigns</title>
+        <title>Jobs</title>
       </Helmet>
       <PageTitleWrapper>
-        <CampaignHeader onAddCampaign={() => setToggleCreateCampaign(true)} />
+        <JobHeader onAddJob={() => setToggleCreateJob(true)} />
       </PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
@@ -29,14 +30,15 @@ function Campaigns() {
           justifyItems="stretch"
         >
           <Grid item xs={12}>
-            {toggleCreateCampaign && (
-              <CampaignEditCreate
-                onClose={() => setToggleCreateCampaign(false)}
-                open={toggleCreateCampaign}
+            {toggleCreateJob && campaignID && (
+              <JobEditCreate
+                onClose={() => setToggleCreateJob(false)}
+                open={toggleCreateJob}
+                campaign={+campaignID}
               />
             )}
             <Card>
-              <CampaignTable />
+              <JobTable />
             </Card>
           </Grid>
         </Grid>
@@ -45,4 +47,4 @@ function Campaigns() {
   );
 }
 
-export default Campaigns;
+export default Jobs;
